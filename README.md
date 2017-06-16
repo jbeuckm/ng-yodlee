@@ -10,7 +10,9 @@ npm i https://github.com/jbeuckm/ng-yodlee.git --save
 
 ### Usage
 
-```javascript 
+```javascript
+YodleeService.setCobrandName(cobrand_name);
+
 YodleeService.cobrand.login(cobrand_login, cobrand_password);
 
 YodleeService.user.login(user_name, user_password);    
