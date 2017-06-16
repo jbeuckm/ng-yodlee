@@ -6,11 +6,11 @@ An angular service to consume the Yodlee API.
 
 Download the module into your project.
 
-`npm i https://github.com/jbeuckm/ng-yodlee.git --save`
+`bower install https://github.com/jbeuckm/ng-yodlee.git`
 
 Include the script on your root html page.
 
-`<script src="./node_modules/ng-yodlee/index.js"></script>`
+`<script src="bower_components/ng-yodlee/index.js"></script>`
 
 Inject the dependency.
 
