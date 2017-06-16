@@ -1,7 +1,9 @@
 angular.module('ng-yodlee', [])
-	.factory('YodleeService', function($http){
+	.factory('YodleeService', ($http) => {
 
 		const URL = "https://developer.api.yodlee.com/ysl";
+
+		let cobrandName, cobSession, userSession;
 
 		function encodeParams(obj) {
 	        var str = [];
@@ -10,21 +12,83 @@ angular.module('ng-yodlee', [])
 	        return str.join("&");
 		}
 
-		return {
-			cobrand: {
-				login: function(options) {
-					console.log(options);
+		function userGetRequest(resource) {
+			return () => {
+				$http({
+					method: 'GET',
+				    url: URL+'/'+cobrandName+'/v1/'+resource,
+				    headers: {
+				    	'Content-Type': 'application/x-www-form-urlencoded',
+				    	'Authorization': '{cobSession='+cobSession+',userSession='+userSession+'}'
+					}
+				})
+					.catch(console.error);
+			};
+		}
 
-					$http({
+		return {
+			setCobrandName: (name) => {
+				cobrandName = name;
+			},
+			cobrand: {
+
+				login: (cobrandLogin, cobrandPassword) => {
+
+					return $http({
 					    method: 'POST',
-					    url: URL+'/restserver/v1/cobrand/login',
-					    data: options,
+					    url: URL+'/'+cobrandName+'/v1/cobrand/login',
+					    data: {
+					    	cobrandLogin: cobrandLogin,
+					    	cobrandPassword: cobrandPassword
+					    },
 					    transformRequest: encodeParams,
 					    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 					})
-						.then(console.log)
+						.then((response) => {
+							cobSession = response.data.session.cobSession;
+						});
+				}
+			},
+			user: {
+
+				login: (loginName, password) => {
+
+					return $http({
+					    method: 'POST',
+					    url: URL+'/'+cobrandName+'/v1/user/login',
+					    data: {
+					    	loginName: loginName,
+					    	password: password
+					    },
+					    transformRequest: encodeParams,
+					    headers: {
+					    	'Content-Type': 'application/x-www-form-urlencoded',
+					    	'Authorization': 'cobSession='+cobSession
+						}
+					})
+						.then((response) => {
+							console.log(response.data)
+							userSession = response.data.user.session.userSession;
+						})
 						.catch(console.error);
 				}
+
+			},
+			accounts: {
+				accounts: userGetRequest('accounts'),
+				historicalBalances: userGetRequest('accounts/historicalBalances')
+			},
+			holdings: {
+				holdings: userGetRequest('holdings')
+			},
+			transactions: {
+				transactions: userGetRequest('transactions')
+			},
+			derived: {
+//				transactionSummary: userGetRequest('derived/transactionSummary'),
+				holdingSummary: userGetRequest('derived/holdingSummary'),
+				networth: userGetRequest('derived/networth')
+				
 			}
 		};
 	});
