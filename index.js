@@ -14,7 +14,7 @@ angular.module('ng-yodlee', [])
 
 		function userGetRequest(resource) {
 			return () => {
-				$http({
+				return $http({
 					method: 'GET',
 				    url: URL+'/'+cobrandName+'/v1/'+resource,
 				    headers: {
@@ -24,6 +24,18 @@ angular.module('ng-yodlee', [])
 				})
 					.catch(console.error);
 			};
+		}
+
+		function userRequest(path, options) {
+
+			options.url = URL+'/'+cobrandName+'/v1/'+path;
+
+			options.headers = {
+		    	'Content-Type': 'application/x-www-form-urlencoded',
+		    	'Authorization': '{cobSession='+cobSession+',userSession='+userSession+'}'
+			};
+
+			return $http(options).catch(console.error);
 		}
 
 		return {
@@ -74,6 +86,7 @@ angular.module('ng-yodlee', [])
 				}
 
 			},
+			userRequest: userRequest,
 			accounts: {
 				accounts: userGetRequest('accounts'),
 				historicalBalances: userGetRequest('accounts/historicalBalances')
