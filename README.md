@@ -4,9 +4,15 @@ An angular service to consume the Yodlee API.
 
 ### Installation
 
-npm i https://github.com/jbeuckm/ng-yodlee.git --save
+`npm i https://github.com/jbeuckm/ng-yodlee.git --save`
 
 `<script src="./node_modules/ng-yodlee/index.js"></script>`
+
+```javascript
+angular.module('myApp', ['ng-yodlee'])
+  .controller('MyController', (YodleeService) => {
+    ...
+```
 
 ### Usage
 
