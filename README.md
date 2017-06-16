@@ -2,11 +2,17 @@
 
 An angular service to consume the Yodlee API.
 
-### Installation
+## Installation
+
+Download the module into your project.
 
 `npm i https://github.com/jbeuckm/ng-yodlee.git --save`
 
+Include the script on your root html page.
+
 `<script src="./node_modules/ng-yodlee/index.js"></script>`
+
+Inject the dependency.
 
 ```javascript
 angular.module('myApp', ['ng-yodlee'])
@@ -14,7 +20,7 @@ angular.module('myApp', ['ng-yodlee'])
     ...
 ```
 
-### Usage
+## Usage
 
 These are essential steps to connect your "Cobrand" account and access a user's data.
 
@@ -27,7 +33,7 @@ YodleeService.cobrand.login(cobrand_login, cobrand_password)
   });
 ```
 
-At this point, the service is able to make requests for that user's data.
+After this, the service is able to make requests for that user's data.
 
 ```javascript
 YodleeService.accounts.accounts();
