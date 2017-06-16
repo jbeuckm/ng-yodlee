@@ -1,0 +1,19 @@
+{
+  "name": "ng-yodlee",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbeuckm/ng-yodlee.git"
+  },
+  "author": "joe beuckman <joebeuckman@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jbeuckm/ng-yodlee/issues"
+  },
+  "homepage": "https://github.com/jbeuckm/ng-yodlee#readme"
+}
